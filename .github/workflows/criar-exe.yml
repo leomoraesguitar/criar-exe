@@ -43,6 +43,7 @@ jobs:
       id: get_date
       run: echo "TAG_NAME=$(date '+%d-%m-%Y-%H-%M')" >> $GITHUB_ENV
 
+
     - name: Create GitHub Release
       id: create_release
       uses: actions/create-release@v1
@@ -50,9 +51,9 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
       with:
         tag_name: ${{ env.TAG_NAME }} 
-        release_name: 'Build EXE Release - ${{ env.TAG_NAME }}'
+        release_name: 'Build EXE Release - '
         body: |
-          Lançamento do executável gerado - ${{ env.TAG_NAME }}.
+          Lançamento do executável gerado - .
         draft: false
         prerelease: false
 
@@ -61,5 +62,5 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: windows-main-artifact.zip
-        asset_name: windows-main-artifact-${{ env.TAG_NAME }}.zip
+        asset_name: windows-main-artifact-.zip
         asset_content_type: application/zip
