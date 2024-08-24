@@ -37,9 +37,6 @@ jobs:
       run: |
         Compress-Archive -Path dist\* -DestinationPath windows-main-artifact.zip
 
-    - name: Generate Tag with Date and Time
-      id: generate_tag
-      run: echo "TAG_NAME=$(date -u +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV  # Gera uma tag no formato AAAAMMDD-HHMMSS
 
     - name: Create GitHub Release
       id: create_release
@@ -47,7 +44,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
       with:
-        tag_name: ${{ env.TAG_NAME }}  # Usa a tag gerada com data e hora
+        tag_name: v1.0.1  # Usa a tag gerada com data e hora
         release_name: 'Build EXE Release -  v1.0.1'
         body: |
           Lançamento do executável gerado em  -  v1.0.1.
