@@ -32,14 +32,13 @@ jobs:
 
     - name: Compress Build Output
       run: |
-        cd dist
-        tar -cvf windows-main-artifact.zip *
-    
+        Compress-Archive -Path dist\* -DestinationPath windows-main-artifact.zip
+
     - name: Upload Windows Artifact
       uses: actions/upload-artifact@v4
       with:
         name: windows-build-artifact
-        path: dist/windows-main-artifact.zip
+        path: windows-main-artifact.zip
         if-no-files-found: warn
         overwrite: false
 
@@ -60,6 +59,6 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: dist/windows-main-artifact.zip
+        asset_path: windows-main-artifact.zip
         asset_name: windows-main-artifact-v1.0.0.zip
         asset_content_type: application/zip
