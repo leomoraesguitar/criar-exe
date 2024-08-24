@@ -50,7 +50,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
       with:
-        tag_name: ${{ env.TAG_NAME }} 
+        tag_name: 'aasda' 
         release_name: 'Build EXE Release - '
         body: |
           Lançamento do executável gerado - .
