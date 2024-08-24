@@ -8,6 +8,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write  # Permissão para criar releases e upload de arquivos
+
 jobs:
   build:
     runs-on: windows-latest
