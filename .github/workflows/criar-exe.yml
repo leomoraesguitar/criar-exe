@@ -31,12 +31,19 @@ jobs:
         pip install -r requirements.txt
 
     - name: Build EXE
-      run: pyinstaller --onefile --windowed main.py
+      run: pyinstaller --onefile main.py
 
     - name: Compress Build Output
       run: |
         Compress-Archive -Path dist\* -DestinationPath windows-main-artifact.zip
 
+    - name: Upload Windows Artifact
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: windows-main-artifact.zip
+        asset_name: windows-main-artifact-v1.0.1.zip
+        asset_content_type: application/zip
 
     - name: Create GitHub Release
       id: create_release
@@ -51,10 +58,3 @@ jobs:
         draft: false
         prerelease: false
 
-    - name: Upload Windows Artifact
-      uses: actions/upload-release-asset@v1
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: windows-main-artifact.zip
-        asset_name: windows-main-artifact-v1.0.1.zip
-        asset_content_type: application/zip
