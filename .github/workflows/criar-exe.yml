@@ -48,9 +48,9 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
       with:
         tag_name: ${{ env.TAG_NAME }}  # Usa a tag gerada com data e hora
-        release_name: 'Build EXE Release - ${{ env.TAG_NAME }}'
+        release_name: 'Build EXE Release -  v1.0.1'
         body: |
-          Lançamento do executável gerado em ${{ env.TAG_NAME }}.
+          Lançamento do executável gerado em  -  v1.0.1.
         draft: false
         prerelease: false
 
