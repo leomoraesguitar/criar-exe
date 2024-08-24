@@ -32,3 +32,9 @@ jobs:
 
     - name: Build EXE
       run: pyinstaller --onefile main.py
+
+    - name: Upload EXE
+      uses: actions/upload-artifact@v4
+      with:
+        name: main-exe
+        path: dist/main.exe
