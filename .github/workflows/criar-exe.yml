@@ -19,7 +19,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.12.2'  # Substitua pelo seu Python necessário
+        python-version: '3.12.2'  # Substitua pelo Python necessário
 
     - name: Install dependencies
       run: |
@@ -27,17 +27,14 @@ jobs:
         pip install --upgrade pyinstaller
         pip install -r requirements.txt
 
-
     - name: Build EXE
       run: pyinstaller --onefile --windowed main.py
-
 
     - name: Compress Build Output
       run: |
         cd dist
-        tar -cvf windows-main-artifact.zip *      
-
-
+        tar -cvf windows-main-artifact.zip *
+    
     - name: Upload Windows Artifact
       uses: actions/upload-artifact@v4
       with:
@@ -46,8 +43,23 @@ jobs:
         if-no-files-found: warn
         overwrite: false
 
-    - name: Upload EXE
-      uses: actions/upload-artifact@v3
+    - name: Create GitHub Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name: main-exe
-        path: dist/main.exe
+        tag_name: 'v1.0.0'  # Substitua pela versão adequada
+        release_name: 'Build EXE Release v1.0.0'
+        body: |
+          Lançamento da versão v1.0.0 do executável.
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: dist/windows-main-artifact.zip
+        asset_name: windows-main-artifact-v1.0.0.zip
+        asset_content_type: application/zip
