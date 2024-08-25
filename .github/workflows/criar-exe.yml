@@ -50,7 +50,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: 'aasda' 
+        tag_name: 'aasda1' 
         release_name: 'Build EXE Release - '
         body: |
           Lançamento do executável gerado - .
